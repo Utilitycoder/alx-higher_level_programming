@@ -21,3 +21,8 @@ and variables, and indexing and slicing strings in Python.
   * [3-print_number.py](./3-print_number.py): Python script that prints the integer stored
   in the variable `number`, followed by `Battery street`, followed by a new line.
   * Completion of [this source code](https://github.com/holbertonschool/0x00.py/blob/master/3-print_number.py).
+
+* **4. Print float**
+  * [4-print_float.py](./4-print_float.py): Python script that prints the float stored
+  in the variable `number` with a precision of two digits.
+  * Completion of [this source code](https://github.com/holbertonschool/0x00.py/blob/master/4-print_float.py).
