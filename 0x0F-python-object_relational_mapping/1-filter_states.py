@@ -6,8 +6,30 @@
 import sys
 import MySQLdb
 
-if __name__ == "__main__":
-    db = MySQLdb.connect(user=sys.argv[1], passwd=sys.argv[2], db=sys.argv[3])
-    c = db.cursor()
-    c.execute("SELECT * FROM `states` ORDER BY `id`")
-    [print(state) for state in c.fetchall() if state[1][0] == "N"]
+if __name__ == '__main__':
+    # read command line arguments
+    mysql_user = sys.argv[1]
+    mysql_password = sys.argv[2]
+    db_name = sys.argv[3]
+
+    # connect to mysql server
+    try:
+        db = MySQLdb.connect(host='localhost',
+                             user=mysql_user,
+                             passwd=mysql_password,
+                             db=db_name,
+                             port=3306)
+    except MySQLdb.Error as e:
+        print(f"Error connecting to MySQL Server: {e}")
+        sys.exit(1)
+
+    # execute sql query
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC")
+
+    # print results
+    for row in cursor.fetchall():
+        print(row)
+
+    # close connection
+    db.close()
