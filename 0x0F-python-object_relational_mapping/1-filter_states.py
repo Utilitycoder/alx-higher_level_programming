@@ -1,35 +1,40 @@
 #!/usr/bin/python3
-# Lists all states with a name starting with N from the database hbtn_0e_0_usa.
-# Usage: ./1-filter_states.py <mysql username> \
-#                             <mysql password> \
-#                             <database name>
+"""
+This script lists all states with a name starting with N from the database hbtn_0e_0_usa
+"""
+
 import sys
 import MySQLdb
 
-if __name__ == '__main__':
-    # read command line arguments
-    mysql_user = sys.argv[1]
-    mysql_password = sys.argv[2]
+
+def main():
+    """Main function"""
+
+    # Get command line arguments
+    username = sys.argv[1]
+    password = sys.argv[2]
     db_name = sys.argv[3]
 
-    # connect to mysql server
-    try:
-        db = MySQLdb.connect(host='localhost',
-                             user=mysql_user,
-                             passwd=mysql_password,
-                             db=db_name,
-                             port=3306)
-    except MySQLdb.Error as e:
-        print(f"Error connecting to MySQL Server: {e}")
-        sys.exit(1)
+    # Open database connection
+    db = MySQLdb.connect(host="localhost", port=3306, user=username,
+                         passwd=password, db=db_name)
 
-    # execute sql query
+    # Create a cursor object
     cursor = db.cursor()
-    cursor.execute("SELECT * FROM states WHERE name LIKE 'n%' ORDER BY id ASC")
 
-    # print results
-    for row in cursor.fetchall():
+    # Execute the SQL query
+    query = "SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC"
+    cursor.execute(query)
+
+    # Fetch all the rows and print them
+    rows = cursor.fetchall()
+    for row in rows:
         print(row)
 
-    # close connection
+    # Close the cursor and database connection
+    cursor.close()
     db.close()
+
+
+if __name__ == '__main__':
+    main()
